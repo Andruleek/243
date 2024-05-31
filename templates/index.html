@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contacts</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+        }
+        form {
+            margin: 20px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: white;
+            margin: 10px 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        li form {
+            display: inline;
+        }
+        a {
+            display: block;
+            margin: 20px;
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Contacts</h1>
+    <form method="GET" action="/">
+        <input type="text" name="search" placeholder="Search contacts">
+        <button type="submit">Search</button>
+    </form>
+    <ul>
+        {% for contact in contacts %}
+        <li>{{ contact.first_name }} {{ contact.last_name }} - {{ contact.email }} - {{ contact.phone }} - {{ contact.birthday }}
+            <form method="POST" action="{{ url_for('delete_contact', index=loop.index0) }}">
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('create_contact') }}">Create new contact</a>
+    <a href="{{ url_for('main') }}">Back to menu</a>
+</body>
+</html>
